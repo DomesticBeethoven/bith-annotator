@@ -1,6 +1,6 @@
 export const vrvPresets = {
   fullScore: {
-    scale: 30,
+    scale: 45,
     breaks: 'none',
     openControlEvents: true,
     svgBoundingBoxes: true,
