@@ -22,7 +22,7 @@ export const params = {
     pref.rdfs + 'label',
     pref.ldp + 'contains'
   ],
-  ignoreObjectPrefix: ['http://d-nb.info/gnd/', 'http://rdaregistry.info/']
+  ignoreObjectPrefix: ['http://d-nb.info/gnd/', 'http://rdaregistry.info/', 'http://iiif.io/api/', 'https://iiif.bodleian.ox.ac.uk/iiif/']
 }
 
 export const traversalObjectives = [

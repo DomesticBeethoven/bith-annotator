@@ -1,6 +1,7 @@
 import { prefix as pref } from './../src/meld/prefixes.js'
 
 export const graphURI = 'https://beta.domestic-beethoven.eu/rdf/BitHCollection.jsonld'
+export const publicPodPath = 'https://bith.solidcommunity.net/public/bith.ttl'
 
 export const params = {
   numHops: 3,
@@ -21,7 +22,7 @@ export const params = {
     pref.rdfs + 'label',
     pref.ldp + 'contains'
   ],
-  ignoreObjectPrefix: ['http://d-nb.info/gnd/', 'http://rdaregistry.info/']
+  ignoreObjectPrefix: ['http://d-nb.info/gnd/', 'http://rdaregistry.info/', 'http://iiif.io/api/', 'https://iiif.bodleian.ox.ac.uk/iiif/']
 }
 
 export const traversalObjectives = [
