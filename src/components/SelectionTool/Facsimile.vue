@@ -83,7 +83,7 @@ export default {
       // create an empty array that will hold details for every page
       const arr = []
 
-      if (manifest['@type'].endsWith(':Manifest')) {
+      if (manifest['@type'] && manifest['@type'].endsWith(':Manifest')) {
         // iterate over the manifest canvas sequence. This is simplifying, in that it makes rather assumptions on the manifest. Probably ok for our own manifests, though.
         manifest.sequences[0].canvases.forEach((canvas, ci) => {
           // get link to IIIF Image API info.json file. If necessary, append '/info.json'
@@ -121,7 +121,7 @@ export default {
           // push the object to the array
           arr.push(obj)
         })
-      } else if (manifest['@type'].endsWith(':Range')) {
+      } else if (manifest['@type'] && manifest['@type'].endsWith(':Range')) {
         const canvases = manifest.canvases
         try {
           const responses = await Promise.all(canvases.map(url => fetch(url)))
@@ -153,6 +153,24 @@ export default {
         } catch (error) {
           console.error('Error fetching data: ', error)
         }
+      } else if (!manifest['@type'] && manifest.id.startsWith('https://www.beethoven.de/') && manifest.type === 'Manifest') {
+        manifest.items.forEach((item, ci) => {
+          const label = item.label.en[0]
+          const width = item.width
+          const height = item.height
+          const imageUri = item.items[0].items[0].body.id
+          // create an object with all the retrieved infos
+          const obj = {
+            imageUri,
+            // measuresUri,
+            label,
+            width,
+            height
+          }
+          arr.push(obj)
+        })
+      } else {
+        console.error('\n\nUNABLE to parse the following manifest:\n', manifest)
       }
 
       // return the array
