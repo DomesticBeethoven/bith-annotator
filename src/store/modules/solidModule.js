@@ -12,7 +12,7 @@ import {
   getUrlAll,
   saveSolidDatasetAt,
   setThing,
-  // getSolidDataset,
+  getSolidDataset,
   // solidDatasetAsTurtle,
   asUrl,
   createSolidDataset
@@ -687,7 +687,7 @@ export const solidModule = {
       const authFetch = userState.solidSession.fetch
 
       const allThings = new Map()
-      let ds = createSolidDataset()
+      let ds = await getSolidDataset(userPodPath).catch(createSolidDataset()) // createSolidDataset()
 
       // TODO: suppress stuff from different creator…
       Object.entries(state.thingStore).forEach(object => {
@@ -748,6 +748,7 @@ export const solidModule = {
           console.log('storing data complete')
         }).catch(resErr => {
           console.log('ERRORED: ' + resErr)
+          console.warn(resErr)
         })
       } catch (err) {
         console.log('ERROR: Unable to save data at ' + userPodPath + ' for strange errors: ' + err)
